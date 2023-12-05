@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: startup-probe 
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    startupProbe:
+      httpGet:
+        path: /
+        port: 80
+      failureThreshold: 30
+      periodSeconds: 5
+~   
