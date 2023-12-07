@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeserve
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubeserve
+  template:
+    metadata:
+      name: kubeserve
+      labels:
+        app: kubeserve
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 80
+              preference:
+                watchExpression:
+                  - key: zone
+                    operator: In
+                    values:
+                      - east
+                      - west
+            - weight: 20
+              preference: 
+                watchExpression:
+                  - key: type
+                    operator: In
+                    values:
+                    - web
+      containers:
+        - name: kubeserve-cont
+          image: leaddevops/kubeserve:v1
+          command:
+            - /bin/bash
+            - -c
+            - sleep 500
