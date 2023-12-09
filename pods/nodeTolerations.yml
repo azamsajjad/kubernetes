@@ -47,5 +47,5 @@ spec:
 #           value: police
 #           effect: "NoSchedule"
           
-        - operators: Exists,Equal
-        - effects: NoExecute,NoSchedule,PreferNoSchedule
+        # - operators: Exists,Equal
+        # - effects: NoExecute,NoSchedule,PreferNoSchedule
