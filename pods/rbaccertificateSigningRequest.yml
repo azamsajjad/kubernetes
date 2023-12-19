@@ -1,0 +1,22 @@
+kind: CertificateSigningRequest
+apiVersion: certificates.k8s.io/v1
+metadata:
+   name: user1
+spec:
+  groups:
+    - system:authenticated
+  request: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUlzs+ss4WIbtptylpCxgf5iGvj9Kvu2STzver5l9FPhQiG4L/kOdI92ltAcKtMpPjb4xwVgcCh2+lCyc2QXrszqmlcU39dGcd7SK1m8soYPhwrKrG6cy6rQjakovfpvphYRDNF6fZ7kHrycFs/WtxnzcxXDgO1Wjv9P9pTfWy58xLS8IBiLIg7OJh06+q7RIOqy3zYZjvjRKDL81FjQ1TZNPWZuDf/5v7RQ9m9hEkkXX1XizDnADiTlZXsjsrzlfzQmpM/uc4Ch9s18xHr7l4ZS3lPZfV7/QO8sUdqeHd4m59zRRGG1B4thsEeKPJC3PzhABjPYcHHYsrr6Zb8JKRAgMBAAECggEAN3EfUskn5O60JSxO4OWzS3Jle5crD4h0APY7cjm4w+KeNoztO4BLSSS4+mQ4pJmppulK+2r8FgVDMQw5FDW8fLCi3pIvkDeAwvW6lRlFwMiVUjE9snV73n1M70/Dqbau2qGJU6tlK3ku+PKbfrSShkXLC5Tsy7WNUfMXfxuFRbwjNNLlpBCwD5t+MZv0f1I41lgJUhw4Dv7KRNEd6fovJfwfmC+qrf4+NWW+tqfIcFw5pgFyIrUsLQOiocUK0aizi9j7Ia/005YgJtUTbj8/ASwQnOlJsAMdLGzASdNpA0xMObzQS+1DBYDWIal0+NjB+vDioMfDD3KbSejR69uHHwKBgQDxCs1mUbd0yWeHeDOknvZ8E2QRU12UZoyRml34Fsa1FoEHxq2LZxwz4M2in5+mtmC4r5xQuYVGusNlOFOr1UQE6SGmLy+fN3Gh+sx6/tJY8F3GmzWcTpjl81JmxhF7DZA7zy/WmZNHlcrHDJ/2Dr4jDUp2N4tBba7s/nJyNUVwlwKBgQDhyHL/agOUWInjllJXlMsYIjkW+eB4zsmmP569Fr+Ow3MwlUAxMU8BzsCbVRlNofezw+6oP/2gK+2EJz83Pgr5K6cKNjpe1H/v79rRFifGLej6AXU6Q2ovB55bdmW1KzSwO6WSAqu0YgcP87QP3ovkeCEBvLxUkK6avpExjHTFwKBgQDJ8g3yKoZ0PwUQ94D07AWAIFLXPSwK1/vvRRBzeMmUED2cQTVGtOVpBW/jTq7YYrYYJXDmJPhnMLPhytY3AZ9SKev6KlBQqYf3eIL2jSW4Q/GdIo5A3Yy2IyynVExy9wMfSM9AkTxWXkYcjBQ8d0+PWGRJNPHjqDxE7E0AKGd8EwKBgClvOsNqtit0MCHnBUdzU+4i4a04wBwLfvAWftAeq5rMfYgt67DbZq9jPO+Ep3cawTVpQJP54laOzSQxWk4BUz3i4rRfvqbibcLscnmB+m2AALuAqglPl6UemM0Z/rNyZiDrLR3BLMy2QS9F+nM3Ivo14Cj6iX0F5p8FYNZcNOqTAoGBAMSNpHKB7Pwqqw9Hexj854yHLnmalqCzyjn7rSVo5Y3iTGGiLcQv0meTlycdWv0ZIf35YRVfFRBHpffmGKX1cWlRm5EMZaU04Ja8/H7kLx42UWhmnQ/SR1ppp6gNEU3EwcP7ix7GNyfpSSnF3MeVVMDv5H3r7MGNJRpDQ0kaP48x
+  signerName: kubernetes.io/kube-apiserver-client
+  #expirationSeconds: 86400
+  usages:
+  - client auth
+
+
+# openssl genrsa -out user1.key 2048
+# openssl req -config csr.conf -new -key user1.key -nodes -out user1.csr
+# cat user1.csr | base64 | tr -d '\n'
+# kubectl apply -f csr.yml
+# kubectl get csr
+# kubectl certificate approve prod-user
+# kubectl get csr prod-user -o jsonpath="{.status.certificate}" | base64 --decode > user1.crt
+# modify kubeconfig with 

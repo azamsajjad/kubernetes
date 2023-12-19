@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-pod-hp
+spec:
+  containers:
+  - image: tomcat
+    name: volume-container-1
+    volumeMounts:
+    - mountPath: /usr/local/tomcat/logs
+      name: hostpath-volume
+  volumes:
+  - name: hostpath-volume
+    hostPath:
+      path: /run/desktop/mnt/host/e/logs   #because of wsl 
+      type: Directory

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev-html
+data:
+  index.html: |
+    <H1> Hello Dev Env ConfigMap </H1>
+
+---
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  name: prod-html
+data:
+  index.html: |
+    <H1> Hello Prod Env ConfigMap </H1>
+
+--- 
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+  - image: nginx
+    name: configmap-pod-cont
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: html-from-configmap
+        mountPath: /usr/share/nginx/html/
+        readOnly: true 
+  volumes:
+  - name: html-from-configmap
+    configMap:
+      name: dev-html
